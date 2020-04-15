@@ -1,4 +1,4 @@
-# react-native-dp3t
+# react-native-dp3t - WIP
 
 ## Getting started
 
