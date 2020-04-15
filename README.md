@@ -35,10 +35,10 @@ iOS - WIP
 
 ### Supported Platforms
 * iOS 10+
-* Android API 21+
+* Android API 23+
 
 
-## Methods
+## Methods - WIP
 * [`startScan`](#startScan)
 * [`startAdvertising`](#startAdvertising)
 * [`stop`](#stop)
@@ -47,8 +47,8 @@ iOS - WIP
 * [`clearData`](#clearData)
 
 
-#### Events from Native to JS
-WIP
+#### Events from Native to JS - WIP
+
 
 
 
