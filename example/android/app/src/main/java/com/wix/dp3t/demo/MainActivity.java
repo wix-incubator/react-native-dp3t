@@ -1,4 +1,4 @@
-package com.example;
+package com.wix.dp3t.demo;
 
 import com.facebook.react.ReactActivity;
 
