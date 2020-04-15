@@ -28,7 +28,7 @@ const App: () => React$Node = () => {
     const [handshakes, setHandshakes] = useState([]);
 
     useEffect(() => {
-
+        _getStatus();
     }, []);
 
     function _star_updateStatus() {
@@ -64,7 +64,6 @@ const App: () => React$Node = () => {
 
     function _getStatus() {
         Dp3t.getStatus((status) => {
-            console.log(JSON.stringify(status))
             setScanningStatus(status.scanning);
             setAdvertisingStatus(status.advertising);
         });
