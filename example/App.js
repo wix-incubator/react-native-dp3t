@@ -17,6 +17,7 @@ import {
     StyleSheet,
 } from 'react-native';
 import Dp3t from 'react-native-dp3t';
+import {Button, Badge, Colors} from 'react-native-ui-lib';
 
 
 const App: () => React$Node = () => {
@@ -28,10 +29,14 @@ const App: () => React$Node = () => {
 
 
     function _startScan() {
-        Dp3t.start()
+        Dp3t.startScan()
     }
 
-    function _stoptScan() {
+    function _startAdvertise() {
+        Dp3t.startAdvertising();
+    }
+
+    function _stoptAll() {
         Dp3t.stop()
     }
 
@@ -41,6 +46,7 @@ const App: () => React$Node = () => {
 
     function _getStatus() {
         Dp3t.getStatus()
+
     }
 
     function _clearData() {
@@ -48,11 +54,14 @@ const App: () => React$Node = () => {
     }
 
 
+
+
     return (
         <View style={styles.container}>
             <View style={styles.subContainer}>
                 {_renderButton('Start Scan', _startScan)}
-                {_renderButton('Stop Scan', _stoptScan)}
+                {_renderButton('Start Advertise', _startAdvertise)}
+                    {_renderButton('Stop All', _stoptAll)}
             </View>
             <View style={styles.subContainer}>
                 {_renderButton('Sync', _sync)}
@@ -75,11 +84,18 @@ const App: () => React$Node = () => {
     );
 
     function _renderButton(text, onClick) {
-        return (
-            <TouchableOpacity style={styles.btn} onPress={onClick}>
-                <Text>{text}</Text>
-            </TouchableOpacity>
-        );
+            return (
+            <Button
+              backgroundColor={Colors.purple30}
+              label={text}
+              size='small'
+              borderRadius={0}
+              labelStyle={{fontWeight: '600'}}
+              style={{marginBottom: 20, marginHorizontal:10}}
+              enableShadow
+              onPress={onClick}
+            />
+            );
     }
 };
 

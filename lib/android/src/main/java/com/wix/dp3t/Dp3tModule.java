@@ -1,19 +1,29 @@
 package com.wix.dp3t;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
+
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
-import com.facebook.react.bridge.Callback;
 
 import org.dpppt.android.sdk.DP3T;
+import org.dpppt.android.sdk.TracingStatus;
+import org.dpppt.android.sdk.internal.AppConfigManager;
+
+import java.io.Console;
 
 public class Dp3tModule extends ReactContextBaseJavaModule {
 
     private final ReactApplicationContext reactContext;
+    private String TAG = "Dp3tModule";
 
     public Dp3tModule(ReactApplicationContext reactContext) {
         super(reactContext);
         this.reactContext = reactContext;
+        registerToStatusEvents();
     }
 
     @Override
@@ -22,33 +32,29 @@ public class Dp3tModule extends ReactContextBaseJavaModule {
     }
 
 
-
-
-   /* function _startScan() {
-        Dp3t.start()
+    public void registerToStatusEvents() {
+        reactContext.registerReceiver(new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                TracingStatus status = getStatus();
+                Log.d(TAG,"status");
+            }
+        }, DP3T.getUpdateIntentFilter());
     }
-
-    function _stoptScan() {
-        Dp3t.stop()
-    }
-
-    function _sync() {
-        Dp3t.sync()
-    }
-
-    function _getStatus() {
-        Dp3t.getStatus()
-    }
-
-    function _clearData() {
-        Dp3t.clearData()
-    }
-    */
-
 
     @ReactMethod
-    public void start() {
-        DP3T.start(reactContext);
+    public void startScan() {
+        DP3T.start(reactContext, false,true);
+    }
+
+    @ReactMethod
+    public void startAdvertising() {
+        DP3T.start(reactContext, true,false);
+    }
+
+    @ReactMethod
+    public void startScanningAndAdvertising() {
+        DP3T.start(reactContext, true,true);
     }
 
     @ReactMethod
@@ -61,10 +67,13 @@ public class Dp3tModule extends ReactContextBaseJavaModule {
         DP3T.sync(reactContext);
     }
 
+
     @ReactMethod
-    public void _getStatus() {
-        DP3T.getStatus(reactContext);
+    public TracingStatus getStatus() {
+        TracingStatus status = DP3T.getStatus(reactContext);
+        return status;
     }
+
 
     @ReactMethod
     public void _clearData() {
@@ -74,6 +83,12 @@ public class Dp3tModule extends ReactContextBaseJavaModule {
 
             }
         });
+    }
+
+
+    @ReactMethod
+    public void getScanInterval() {
+        AppConfigManager.getInstance(reactContext).getScanInterval();
     }
 
 }
