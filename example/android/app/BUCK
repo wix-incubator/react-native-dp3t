@@ -40,7 +40,7 @@ android_build_config(
 
 android_resource(
     name = "res",
-    package = "com.example",
+    package = "com.wix.dp3t.demo",
     res = "src/main/res",
 )
 
